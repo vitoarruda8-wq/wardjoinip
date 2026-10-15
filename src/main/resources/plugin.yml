@@ -1,0 +1,30 @@
+name: WardJoinIP
+version: '${project.version}'
+main: fr.wardluik.joinip.WardJoinIP
+api-version: '1.21'
+description: Adresses speciales (media / stream) : annonce dans le chat et mode stream automatique.
+author: WardLuik
+softdepend: [LuckPerms]
+commands:
+  wardjoin:
+    description: Gerer les adresses speciales
+    usage: /wardjoin <list|add|remove|test|reload>
+    aliases: [wjip]
+    permission: wardjoin.admin
+  stream:
+    description: Activer ou desactiver ton mode stream
+    usage: /stream
+    permission: wardjoin.stream
+permissions:
+  wardjoin.admin:
+    description: Autorise /wardjoin
+    default: op
+  wardjoin.stream:
+    description: Autorise /stream (activer le mode stream a la main)
+    default: false
+  wardjoin.stream.bypass:
+    description: Peut contacter / se teleporter vers un joueur en mode stream
+    default: op
+  wardjoin.silent:
+    description: Aucune annonce quand cette personne se connecte avec une adresse speciale
+    default: false

@@ -1,0 +1,67 @@
+# ---------------------------------------------------------------
+# WardJoinIP
+#
+# - Adresse PUBLIQUE : celle que tout le monde utilise. Aucune annonce,
+#   aucun mode special (toute adresse non listee ci-dessous se comporte pareil).
+# - Adresses MEDIA : une par createur / reseau. Quand un joueur se connecte
+#   avec l'une d'elles, le MODE STREAM s'active automatiquement.
+# - Adresses avec message : annonce dans le chat (pseudo + grade).
+#
+# Toutes ces adresses doivent pointer vers ton serveur
+# (enregistrement DNS A ou CNAME chez ton registrar).
+#
+# Modifiable a tout moment :
+#   - en editant ce fichier puis  /wardjoin reload
+#   - ou en jeu :  /wardjoin add <adresse> <normal|stream> [message]
+#                  /wardjoin remove <adresse>
+# ---------------------------------------------------------------
+
+# Adresse que tu donnes au public (informatif : affichee par /wardjoin list).
+public-host: "wardluiksmp.net"
+
+# Message par defaut des adresses "normal" sans message precise.
+# Format MiniMessage. Variables : <player> <rank> <group> <host>
+default-message: "<gold>✦</gold> <rank> <white><player></white> <gray>a rejoint via <yellow><host></yellow></gray>"
+
+entries:
+  # --- Adresses media : mode stream automatique, aucune annonce ---
+  - host: "youtube.wardluiksmp.net"
+    stream: true
+    message: ""
+  - host: "twitch.wardluiksmp.net"
+    stream: true
+    message: ""
+  - host: "tiktok.wardluiksmp.net"
+    stream: true
+    message: ""
+  - host: "media.wardluiksmp.net"
+    stream: true
+    message: ""
+  # --- Exemple d'adresse avec annonce dans le chat ---
+  - host: "vip.wardluiksmp.net"
+    stream: false
+    message: "<gradient:gold:yellow>★ VIP</gradient> <rank> <white><player></white> <gray>est arrivé par la porte VIP !</gray>"
+
+# --- Mode stream ---------------------------------------------------
+# Pensé pour eviter le "stream sniping" et les fuites en direct.
+# Un joueur en mode stream :
+#   - n'a plus de message de connexion / deconnexion dans le chat
+#   - ne peut pas recevoir de messages prives ni de demandes de teleportation
+#     (commandes listees ci-dessous, sauf pour ceux qui ont wardjoin.stream.bypass)
+# Il peut aussi l'activer / desactiver a la main avec /stream (permission wardjoin.stream).
+stream-mode:
+  hide-join-quit-messages: true
+  blocked-commands: [msg, tell, w, whisper, m, t, pm, tpa, tpahere, tpask]
+  messages:
+    enabled: "<red>●</red> <white>Mode stream activé</white> <gray>— plus de messages privés ni de téléportation vers toi, et tes connexions ne sont plus annoncées. Tape <yellow>/stream</yellow> pour le désactiver.</gray>"
+    disabled: "<gray>Mode stream désactivé.</gray>"
+    blocked: "<red><player> est en mode stream : impossible de le contacter ainsi pour le moment.</red>"
+
+# --- Grade -------------------------------------------------------
+# "prefix" : affiche le prefixe LuckPerms (ex: [Admin]), sinon le nom du groupe
+# "group"  : affiche toujours le nom du groupe
+rank-source: prefix
+
+# Grade affiche si le joueur n'a ni prefixe ni groupe (ou groupe "default").
+# Accepte les codes couleur avec &.
+default-rank: "&7Joueur"
